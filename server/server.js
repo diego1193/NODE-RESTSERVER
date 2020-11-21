@@ -3,6 +3,7 @@ require('./config/config');
 
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 
 //// Todo lo que el usuario requiera en el postman "Nombre y edad"
 //TODO:va a quedar grabado en el siguienre codigo y va ir al app.gest TODO:
@@ -13,51 +14,19 @@ app.use(bodyParser.urlencoded({ extended: false })) /// el .use sirve para que c
 // parse application/json
 app.use(bodyParser.json())
 
-
-//////informacion que estamos obpteniendo/////
-app.get('/usuario', (req, res) => {
-    res.json('get usuarios');
-})
+app.use(require('./rutas/rutas'));
 
 
-/////////crear registros////////
-app.post('/usuario', (req, res) => {
-
-    ///TODO: AQUI VA IR LO DE BODY///
-    let body = req.body
-
-    //// Dentro de este if va los mensajes de error al code status "400, 200"
-    if (body.nombre === undefined) {
-
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        });
-
-    } else {
-
-        res.json({
-
-            persona: body //// TODO: SE GUARDA EN UN TIPO JSON 
-        });
-
-    }
-})
-
-/////////actualizar data///////
-app.put('/usuario/:id', (req, res) => {
-
-    let id = req.params.id;
-    res.json({
-        id
-    });
-})
-
-/////////borrar datos o registros/////
-app.delete('/usuario', (req, res) => {
-    res.json('Delete usuarios');
-})
-
+/// coneccion a mongodb
+mongoose.connect(process.env.urlDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+}, (err, res) => {
+    if (err) throw err;
+    console.log('Base de datos ONLINE')
+});
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto', 3000);
 });
