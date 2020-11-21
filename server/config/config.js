@@ -21,7 +21,8 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/apid'; // SI EXISTE ENTOCES ES LOCAL
 } else {
-    urlDB = 'mongodb+srv://diego1193:1193108557c@cluster0.uswxv.mongodb.net/apid' // DE LO CONTRARIO ES POR URL
+    urlDB = process.env.MONGO_URI
+        //urlDB = 'mongodb+srv://diego1193:1193108557c@cluster0.uswxv.mongodb.net/apid' // DE LO CONTRARIO ES POR URL
 }
 
 process.env.urlDB = urlDB;
