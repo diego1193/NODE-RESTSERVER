@@ -30,3 +30,24 @@ process.env.urlDB = urlDB;
 //mongodb://localhost:27017/apid
 
 //mongodb+srv://diego1193:1193108557c@cluster0.uswxv.mongodb.net/apid
+
+
+//================================
+//// VENCIMUENTO DEL TOKEN
+//============================
+//60 MIN
+// 60 SG
+// 24 HRS
+// 30 DIAS
+
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+
+
+
+
+
+//================================
+//// SEED SEMILLA DE AUTENTICACION 
+//============================
+
+process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';

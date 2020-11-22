@@ -14,9 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false })) /// el .use sirve para que c
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(require('./rutas/rutas'));
+//app.use(require('./rutas/rutas'));
 
-
+//Configuracion glogal de rutas
+app.use(require('./rutas/index'));
+// app.use(require('./rutas/login'));
 /// coneccion a mongodb
 mongoose.connect(process.env.urlDB, {
     useNewUrlParser: true,

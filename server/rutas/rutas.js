@@ -3,10 +3,18 @@ const bcrypt = require('bcrypt'); /// para incriptar
 const _ = require('underscore'); // en el put para seleccionar los avlores que
 const app = express();
 const Usuario = require('../models/usuario'); // el modelo para crear la tabala en mongoose
+const { verificaToken, vereficaAdmin_Role } = require('../middlewares/autenticacion');
 const usuario = require('../models/usuario');
 
 //////informacion que estamos obpteniendo/////
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
+
+    // return res.json({
+    //     usuario: req.usuario,
+    //     nombre: req.usuario.nombre,
+    //     email: req.usuario.email
+
+    // });
 
     // TODO: en postman despues del /usuario?limite=10&desde=10, para indicar parametros opciobales
 
@@ -42,7 +50,8 @@ app.get('/usuario', (req, res) => {
 
 
 /////////crear registros////////
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, vereficaAdmin_Role], (req, res) => {
+
 
     ///TODO: AQUI VA IR LO DE BODY///
     let body = req.body
@@ -71,7 +80,10 @@ app.post('/usuario', (req, res) => {
 })
 
 /////////actualizar data///////
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, vereficaAdmin_Role], (req, res) => {
+
+
+
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado', ]);
 
@@ -100,7 +112,10 @@ app.put('/usuario/:id', (req, res) => {
 })
 
 /////////borrar datos o registros/////
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', [verificaToken, vereficaAdmin_Role], (req, res) => {
+
+
+
 
     let id = req.params.id;
 
