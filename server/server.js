@@ -4,6 +4,7 @@ require('./config/config');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 
 //// Todo lo que el usuario requiera en el postman "Nombre y edad"
 //TODO:va a quedar grabado en el siguienre codigo y va ir al app.gest TODO:
@@ -18,6 +19,12 @@ app.use(bodyParser.json())
 
 //Configuracion glogal de rutas
 app.use(require('./rutas/index'));
+
+//Pra que vaya y me corra todo lo q esta en public
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+
+
 // app.use(require('./rutas/login'));
 /// coneccion a mongodb
 mongoose.connect(process.env.urlDB, {
